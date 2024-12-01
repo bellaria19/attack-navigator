@@ -1,5 +1,6 @@
 <div class="technique-cell" [ngStyle]="getTechniqueBackground()" [ngClass]="getClass()">
-    <div (click)="onLeftClick($event)" (contextmenu)="onRightClick($event)" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    <div (click)="onLeftClick($event)" (contextmenu)="onRightClick($event)" (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()">
         <span [style.border-color]="getTechniqueUnderlineColor()" [style.color]="getTechniqueTextColor()">
             <ng-container *ngIf="viewModel.layout.showID">{{ technique.attackID }}</ng-container>
             <div class="id-name-break" *ngIf="viewModel.layout.showID && viewModel.layout.showName"></div>
@@ -12,10 +13,6 @@
         </ng-container>
     </div>
     <app-tooltip *ngIf="showTooltip" [technique]="technique" [tactic]="tactic" [viewModel]="viewModel"></app-tooltip>
-    <app-contextmenu
-        *ngIf="showContextmenu"
-        [technique]="technique"
-        [tactic]="tactic"
-        [viewModel]="viewModel"
+    <app-contextmenu *ngIf="showContextmenu" [technique]="technique" [tactic]="tactic" [viewModel]="viewModel"
         (close)="showContextmenu = false; onMouseLeave()"></app-contextmenu>
 </div>

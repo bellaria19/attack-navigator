@@ -9,6 +9,9 @@ import { Subscription } from 'rxjs';
 import * as Excel from 'exceljs/dist/exceljs.min.js';
 import tinycolor from 'tinycolor2';
 import { isIE } from '../utils/utils';
+import { MatDialog } from '@angular/material/dialog';
+import { JsonViewerDialogComponent } from '../dialogs/json-viewer-dialog.component';
+import { AttackImportService } from '../services/attack-import.service';
 
 @Component({
     selector: 'DataTable',
@@ -18,6 +21,8 @@ import { isIE } from '../utils/utils';
 })
 export class DataTableComponent implements AfterViewInit, OnDestroy {
     @ViewChild('scrollRef') private scrollRef: ElementRef;
+    @ViewChild('fileInput') fileInput: ElementRef;
+    @ViewChild('defenseFileInput') defenseFileInput: ElementRef;
 
     @Input() viewModel: ViewModel; // ViewModel being used by this data-table
     @Input() currentDropdown: string = ''; // current dropdown menu
@@ -69,7 +74,7 @@ export class DataTableComponent implements AfterViewInit, OnDestroy {
     showControlsBar = true;
     previousControlSection = '';
 
-    currentControlSection = "selection";
+    currentControlSection = 'selection';
 
     showHelpDropDown = false;
 
@@ -78,7 +83,7 @@ export class DataTableComponent implements AfterViewInit, OnDestroy {
     public scoreEditField: string = '';
 
     private selectionChangeSubscription: Subscription;
-    
+
     public layerControlsList = [];
     public techniqueControlsList = [];
     public selectionControlsList = [];
@@ -94,26 +99,26 @@ export class DataTableComponent implements AfterViewInit, OnDestroy {
         private tabs: TabsComponent,
         private sanitizer: DomSanitizer,
         private viewModelsService: ViewModelsService,
-        public configService: ConfigService
+        public configService: ConfigService,
+        private dialog: MatDialog,
+        private attackImportService: AttackImportService
     ) {
         this.selectionChangeSubscription = this.viewModelsService.onSelectionChange.subscribe(() => {
             this.onTechniqueSelect();
         });
         this.includedControls = configService.featureList;
-        for(let i=0;i <this.includedControls.length;i++){
-            if(this.includedControls[i].name == "layer_controls"){
-                for(let j=0;j<this.includedControls[i].subfeatures.length;j++){
-                    this.layerControlsList.push(this.includedControls[i].subfeatures[j].display_name)
+        for (let i = 0; i < this.includedControls.length; i++) {
+            if (this.includedControls[i].name == 'layer_controls') {
+                for (let j = 0; j < this.includedControls[i].subfeatures.length; j++) {
+                    this.layerControlsList.push(this.includedControls[i].subfeatures[j].display_name);
                 }
-            }
-            else if(this.includedControls[i].name == "technique_controls"){
-                for(let j=0;j<this.includedControls[i].subfeatures.length;j++){
-                    this.techniqueControlsList.push(this.includedControls[i].subfeatures[j].display_name)
+            } else if (this.includedControls[i].name == 'technique_controls') {
+                for (let j = 0; j < this.includedControls[i].subfeatures.length; j++) {
+                    this.techniqueControlsList.push(this.includedControls[i].subfeatures[j].display_name);
                 }
-            }
-            else if(this.includedControls[i].name == "selection_controls"){
-                for(let j=0;j<this.includedControls[i].subfeatures.length;j++){
-                    this.selectionControlsList.push(this.includedControls[i].subfeatures[j].display_name)
+            } else if (this.includedControls[i].name == 'selection_controls') {
+                for (let j = 0; j < this.includedControls[i].subfeatures.length; j++) {
+                    this.selectionControlsList.push(this.includedControls[i].subfeatures[j].display_name);
                 }
             }
         }
@@ -175,7 +180,7 @@ export class DataTableComponent implements AfterViewInit, OnDestroy {
             this.handleTechniqueControlsSettingsDropdown();
         }
     }
-    
+
     handleKeyDownSelection(event: KeyboardEvent): void {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
@@ -191,47 +196,46 @@ export class DataTableComponent implements AfterViewInit, OnDestroy {
     }
 
     isControlIncluded(control, subfeature) {
-        for(let i=0;i <this.includedControls.length;i++){
-            if(this.includedControls[i].name == control){
-                for(let j=0;j<this.includedControls[i].subfeatures.length;j++){
-                    if(this.includedControls[i].subfeatures[j].name == subfeature){
-                        if(this.includedControls[i].subfeatures[j].enabled){
+        for (let i = 0; i < this.includedControls.length; i++) {
+            if (this.includedControls[i].name == control) {
+                for (let j = 0; j < this.includedControls[i].subfeatures.length; j++) {
+                    if (this.includedControls[i].subfeatures[j].name == subfeature) {
+                        if (this.includedControls[i].subfeatures[j].enabled) {
                             return true;
-                        }
-                        else{
+                        } else {
                             return false;
                         }
                     }
                 }
             }
         }
-        return false
+        return false;
     }
 
     getControlDisplayName(control, subfeature): Object {
-        for(let i=0;i <this.includedControls.length;i++){
-            if(this.includedControls[i].name == control){
-                for(let j=0;j<this.includedControls[i].subfeatures.length;j++){
-                    if(this.includedControls[i].subfeatures[j].name == subfeature){
+        for (let i = 0; i < this.includedControls.length; i++) {
+            if (this.includedControls[i].name == control) {
+                for (let j = 0; j < this.includedControls[i].subfeatures.length; j++) {
+                    if (this.includedControls[i].subfeatures[j].name == subfeature) {
                         return this.includedControls[i].subfeatures[j].display_name;
                     }
                 }
             }
         }
-        return null
+        return null;
     }
 
     getControl(control, subfeature): Object {
-        for(let i=0;i <this.includedControls.length;i++){
-            if(this.includedControls[i].name == control){
-                for(let j=0;j<this.includedControls[i].subfeatures.length;j++){
-                    if(this.includedControls[i].subfeatures[j].display_name == subfeature){
+        for (let i = 0; i < this.includedControls.length; i++) {
+            if (this.includedControls[i].name == control) {
+                for (let j = 0; j < this.includedControls[i].subfeatures.length; j++) {
+                    if (this.includedControls[i].subfeatures[j].display_name == subfeature) {
                         return this.includedControls[i].subfeatures[j];
                     }
                 }
             }
         }
-        return null
+        return null;
     }
     /**
      * Save the given blob
@@ -700,7 +704,91 @@ export class DataTableComponent implements AfterViewInit, OnDestroy {
      * Open layer settings in sidebar
      */
     public openLayerSettings(): void {
-            this.viewModel.sidebarOpened = this.viewModel.sidebarContentType !== 'layerSettings' ? true : !this.viewModel.sidebarOpened;
-            this.viewModel.sidebarContentType = 'layerSettings';
+        this.viewModel.sidebarOpened = this.viewModel.sidebarContentType !== 'layerSettings' ? true : !this.viewModel.sidebarOpened;
+        this.viewModel.sidebarContentType = 'layerSettings';
+    }
+
+    showCurrentJson() {
+        const data = this.attackImportService.getCurrentAttackData();
+        if (data) {
+            const dialogRef = this.dialog.open(JsonViewerDialogComponent, {
+                width: '600px',
+                data: { json: JSON.stringify(data, null, 2) },
+            });
+        }
+    }
+
+    uploadAttackData() {
+        this.fileInput.nativeElement.click();
+    }
+
+    onFileSelected(event: any) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    console.log('data', data);
+                    this.attackImportService.applyAttackData(data, this.viewModel);
+                    // 파일 입력 초기화
+                    this.fileInput.nativeElement.value = '';
+                } catch (error) {
+                    alert('Invalid JSON file');
+                }
+            };
+            reader.readAsText(file);
+        }
+    }
+
+    // public getter for template
+    public hasAttackData(): boolean {
+        return !!this.attackImportService.getCurrentAttackData();
+    }
+
+    public hasDefenseData(): boolean {
+        return !!this.attackImportService.getCurrentDefenseData();
+    }
+
+    uploadDefenseData() {
+        this.defenseFileInput.nativeElement.click();
+    }
+
+    onDefenseFileSelected(event: any) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    try {
+                        this.attackImportService.applyDefenseData(data, this.viewModel);
+                        // 성공적으로 적용됨
+                        this.defenseFileInput.nativeElement.value = '';
+                    } catch (validationError) {
+                        console.error('Defense data validation error:', validationError);
+                        alert('Defense data structure is invalid. Please check the format.');
+                    }
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    alert('Invalid JSON file format');
+                }
+            };
+            reader.onerror = (error) => {
+                console.error('File reading error:', error);
+                alert('Error reading file');
+            };
+            reader.readAsText(file);
+        }
+    }
+
+    showCurrentDefenseJson() {
+        const data = this.attackImportService.getCurrentDefenseData();
+        if (data) {
+            const dialogRef = this.dialog.open(JsonViewerDialogComponent, {
+                width: '600px',
+                data: { json: JSON.stringify(data, null, 2) },
+            });
+        }
     }
 }

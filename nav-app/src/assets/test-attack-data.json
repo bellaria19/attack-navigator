@@ -1,0 +1,97 @@
+{
+    "version": "1.0",
+    "timestamp": "2024-03-21T09:00:00Z",
+    "techniques": [
+        {
+            "techniqueID": "T1548",
+            "tactics": ["privilege-escalation", "defense-evasion"],
+            "name": "Abuse Elevation Control Mechanism",
+            "severity": "high",
+            "description": "권한 상승 메커니즘 악용 시도",
+            "details": "시스템 권한 상승을 위한 UAC 우회 시도가 관찰됨"
+        },
+        {
+            "techniqueID": "T1134",
+            "tactics": ["defense-evasion", "privilege-escalation"],
+            "name": "Access Token Manipulation",
+            "severity": "high",
+            "description": "접근 토큰 조작 시도",
+            "details": "프로세스 토큰 조작을 통한 권한 상승 시도 발견"
+        },
+        {
+            "techniqueID": "T1053",
+            "tactics": ["execution", "persistence", "privilege-escalation"],
+            "name": "Scheduled Task/Job",
+            "severity": "medium",
+            "description": "예약된 작업/작업 시도",
+            "details": "시스템에서 예약된 작업/작업 생성 시도 관찰"
+        },
+        {
+            "techniqueID": "T1003",
+            "tactics": ["credential-access"],
+            "name": "OS Credential Dumping",
+            "severity": "high",
+            "description": "OS 자격 증명 덤핑 시도",
+            "details": "시스템 자격 증명 덤핑 시도 관찰"
+        },
+        {
+            "techniqueID": "T1055",
+            "tactics": ["defense-evasion", "privilege-escalation"],
+            "name": "Process Injection",
+            "severity": "high",
+            "description": "프로세스 주입 시도",
+            "details": "프로세스 주입을 통한 권한 상승 시도 발견"
+        },
+        {
+            "techniqueID": "T1059",
+            "tactics": ["execution"],
+            "name": "Command and Scripting Interpreter",
+            "severity": "medium",
+            "description": "명령어 및 스크립트 인터프리터 시도",
+            "details": "시스템에서 명령어 및 스크립트 인터프리터 실행 시도 관찰"
+        },
+        {
+            "techniqueID": "T1027",
+            "tactics": ["defense-evasion"],
+            "name": "Obfuscated Files or Information",
+            "severity": "medium",
+            "description": "가명 파일 또는 정보 시도",
+            "details": "가명 파일 또는 정보 생성 시도 관찰"
+        },
+        {
+            "techniqueID": "T1486",
+            "tactics": ["impact"],
+            "name": "Data Encrypted for Impact",
+            "severity": "high",
+            "description": "영향을 위한 데이터 암호화 시도",
+            "details": "영향을 위한 데이터 암호화 시도 관찰"
+        },
+        {
+            "techniqueID": "T1078",
+            "tactics": ["defense-evasion", "persistence", "privilege-escalation", "initial-access"],
+            "name": "Valid Accounts",
+            "severity": "high",
+            "description": "유효한 계정 시도",
+            "details": "유효한 계정 생성 또는 사용 시도 관찰"
+        },
+        {
+            "techniqueID": "T1569",
+            "tactics": ["execution"],
+            "name": "System Services",
+            "severity": "medium",
+            "description": "시스템 서비스 시도",
+            "details": "시스템 서비스 생성 또는 사용 시도 관찰"
+        }
+    ],
+    "metadata": {
+        "title": "Test Attack Pattern Analysis",
+        "creator": "Security Research Team",
+        "created": "2024-03-21",
+        "description": "관찰된 공격 패턴 및 기법 분석 보고서",
+        "tags": [
+            "Privilege Escalation",
+            "Defense Evasion",
+            "Lateral Movement"
+        ]
+    }
+} 

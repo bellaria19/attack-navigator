@@ -36,7 +36,6 @@ import { TacticCellComponent } from './matrix/tactic-cell/tactic-cell.component'
 import { VersionUpgradeComponent } from './version-upgrade/version-upgrade.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayerUpgradeComponent } from './layer-upgrade/layer-upgrade.component';
-import { ChangelogCellComponent } from './layer-upgrade/changelog-cell/changelog-cell.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -49,6 +48,8 @@ import { ChangelogComponent } from './changelog/changelog.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ListInputComponent } from './list-input/list-input.component';
 import { ConfigService } from './services/config.service';
+import { JsonViewerDialogComponent } from './dialogs/json-viewer-dialog.component';
+import { TechniqueDetailsDialogComponent } from './layer-upgrade/technique-details-dialog/technique-details-dialog.component';
 
 @NgModule({
     declarations: [
@@ -68,11 +69,12 @@ import { ConfigService } from './services/config.service';
         VersionUpgradeComponent,
         SidebarComponent,
         LayerUpgradeComponent,
-        ChangelogCellComponent,
         LayerInformationComponent,
         ChangelogComponent,
         ListInputComponent,
         LayerSettingsComponent,
+        JsonViewerDialogComponent,
+        TechniqueDetailsDialogComponent,
     ],
     imports: [
         BrowserModule,

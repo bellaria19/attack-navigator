@@ -29,6 +29,14 @@ export class TechniqueVM {
     public showSubtechniques = false;
     public isVisible: boolean = true; // is technique currently displayed on matrix?
 
+    public description: string = '';
+    public attackDescription: string = '';
+    public defenseDescription: string = '';
+    public defenseActions: string[] = [];
+
+    public attackData: any = null; // 공격 데이터를 저장할 속성
+    public defenseData: any = null; // 방어 데이터를 저장할 속성
+
     constructor(technique_tactic_union_id: string) {
         this.technique_tactic_union_id = technique_tactic_union_id;
         let idSplit = technique_tactic_union_id.split('^');
@@ -152,5 +160,22 @@ export class TechniqueVM {
                 if (link.valid()) this.links.push(link);
             }
         }
+    }
+
+    public getTooltipText(): string {
+        let tooltip = '';
+
+        if (this.attackDescription) {
+            tooltip += `[Attack]\n${this.attackDescription}\n\n`;
+        }
+
+        if (this.defenseDescription) {
+            tooltip += `[Defense]\n${this.defenseDescription}\n`;
+            if (this.defenseActions && this.defenseActions.length > 0) {
+                tooltip += '\n[Actions Taken]\n' + this.defenseActions.join('\n');
+            }
+        }
+
+        return tooltip || 'No description available';
     }
 }

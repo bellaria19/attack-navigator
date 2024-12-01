@@ -4,6 +4,8 @@ import { Technique, Tactic } from '../../../classes/stix';
 import { ViewModelsService } from '../../../services/viewmodels.service';
 import { ConfigService } from '../../../services/config.service';
 import { CellPopover } from '../cell-popover';
+import { MatDialog } from '@angular/material/dialog';
+import { TechniqueDetailsDialogComponent } from '../../../layer-upgrade/technique-details-dialog/technique-details-dialog.component';
 
 @Component({
     selector: 'app-contextmenu',
@@ -29,7 +31,8 @@ export class ContextmenuComponent extends CellPopover implements OnInit {
     constructor(
         private element: ElementRef,
         public configService: ConfigService,
-        public viewModelsService: ViewModelsService
+        public viewModelsService: ViewModelsService,
+        private dialog: MatDialog
     ) {
         super(element);
     }
@@ -116,6 +119,18 @@ export class ContextmenuComponent extends CellPopover implements OnInit {
 
     public openLink(link: Link) {
         window.open(link.url);
+        this.closeContextmenu();
+    }
+
+    public viewTechniqueDetails() {
+        const dialogRef = this.dialog.open(TechniqueDetailsDialogComponent, {
+            width: '600px',
+            data: {
+                technique: this.technique,
+                tactic: this.tactic,
+                techniqueVM: this.techniqueVM,
+            },
+        });
         this.closeContextmenu();
     }
 }

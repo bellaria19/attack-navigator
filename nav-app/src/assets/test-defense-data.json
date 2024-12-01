@@ -1,0 +1,150 @@
+{
+    "version": "1.0",
+    "timestamp": "2024-03-21T10:30:00Z",
+    "measures": [
+        {
+            "techniqueID": "T1548",
+            "status": "detected",
+            "detectionMethod": "EDR Alert",
+            "implementedControls": ["Access Control", "Privilege Management"],
+            "timestamp": "2024-03-21T10:15:00Z",
+            "confidence": "high",
+            "description": "권한 상승 시도가 EDR에 의해 탐지됨",
+            "actionTaken": "프로세스 종료 및 격리 조치 완료",
+            "recommendedActions": [
+                "관련 계정 권한 검토",
+                "추가 접근 통제 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1053",
+            "status": "blocked",
+            "detectionMethod": "SIEM Rule",
+            "implementedControls": ["Task Scheduler Monitoring"],
+            "timestamp": "2024-03-21T10:20:00Z",
+            "confidence": "medium",
+            "description": "비정상적인 예약 작업 생성 시도 차단",
+            "actionTaken": "작업 생성 차단 및 로그 기록",
+            "recommendedActions": [
+                "스케줄러 접근 권한 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1078",
+            "status": "mitigated",
+            "detectionMethod": "IDS Alert",
+            "implementedControls": ["Account Monitoring", "Access Control"],
+            "timestamp": "2024-03-21T10:25:00Z",
+            "confidence": "high",
+            "description": "계정 모니터링 및 접근 제어 구현 검토",
+            "actionTaken": "계정 모니터링 및 접근 제어 구현 검토",
+            "recommendedActions": [
+                "계정 모니터링 및 접근 제어 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1003",
+            "status": "detected",
+            "detectionMethod": "Memory Scanner",
+            "implementedControls": ["Memory Protection", "Credential Guard"],
+            "timestamp": "2024-03-21T10:35:00Z",
+            "confidence": "high",
+            "description": "메모리 보호 및 자격 증명 보호 구현 검토",
+            "actionTaken": "메모리 보호 및 자격 증명 보호 구현 검토",
+            "recommendedActions": [
+                "메모리 보호 및 자격 증명 보호 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1055",
+            "status": "blocked",
+            "detectionMethod": "Anti-malware",
+            "implementedControls": ["Process Monitoring", "Behavior Analysis"],
+            "timestamp": "2024-03-21T10:40:00Z",
+            "confidence": "medium",
+            "description": "악성 코드 방지 및 행동 분석 구현 검토",
+            "actionTaken": "악성 코드 방지 및 행동 분석 구현 검토",
+            "recommendedActions": [
+                "악성 코드 방지 및 행동 분석 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1027",
+            "status": "detected",
+            "detectionMethod": "File Scanner",
+            "implementedControls": ["File Monitoring", "Signature Detection"],
+            "timestamp": "2024-03-21T10:45:00Z",
+            "confidence": "medium",
+            "description": "파일 모니터링 및 서명 검사 구현 검토",
+            "actionTaken": "파일 모니터링 및 서명 검사 구현 검토",
+            "recommendedActions": [
+                "파일 모니터링 및 서명 검사 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1486",
+            "status": "blocked",
+            "detectionMethod": "Ransomware Protection",
+            "implementedControls": ["File Backup", "Encryption Monitoring"],
+            "timestamp": "2024-03-21T10:50:00Z",
+            "confidence": "high",
+            "description": "랜섬웨어 방지 및 암호화 모니터링 구현 검토",
+            "actionTaken": "랜섬웨어 방지 및 암호화 모니터링 구현 검토",
+            "recommendedActions": [
+                "랜섬웨어 방지 및 암호화 모니터링 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1569",
+            "status": "mitigated",
+            "detectionMethod": "Service Monitor",
+            "implementedControls": ["Service Control", "Behavior Analysis"],
+            "timestamp": "2024-03-21T10:55:00Z",
+            "confidence": "medium",
+            "description": "서비스 모니터링 및 행동 분석 구현 검토",
+            "actionTaken": "서비스 모니터링 및 행동 분석 구현 검토",
+            "recommendedActions": [
+                "서비스 모니터링 및 행동 분석 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1087",
+            "status": "detected",
+            "detectionMethod": "Audit Log",
+            "implementedControls": ["Account Enumeration Prevention"],
+            "timestamp": "2024-03-21T11:00:00Z",
+            "confidence": "low",
+            "description": "계정 열거 방지 구현 검토",
+            "actionTaken": "계정 열거 방지 구현 검토",
+            "recommendedActions": [
+                "계정 열거 방지 구현 검토"
+            ]
+        },
+        {
+            "techniqueID": "T1562",
+            "status": "blocked",
+            "detectionMethod": "Security Service Monitor",
+            "implementedControls": ["Security Software Protection"],
+            "timestamp": "2024-03-21T11:05:00Z",
+            "confidence": "high",
+            "description": "보안 소프트웨어 보호 구현 검토",
+            "actionTaken": "보안 소프트웨어 보호 구현 검토",
+            "recommendedActions": [
+                "보안 소프트웨어 보호 구현 검토"
+            ]
+        }
+    ],
+    "metadata": {
+        "title": "Test Defense Measures Report",
+        "organization": "SOC Team",
+        "lastUpdated": "2024-03-21T11:05:00Z",
+        "description": "EDR과 SIEM을 통해 탐지된 공격 시도 및 대응 조치 보고서",
+        "environment": "Enterprise Network",
+        "tooling": [
+            "EDR Solution",
+            "SIEM Platform",
+            "Network IDS",
+            "File Integrity Monitoring"
+        ]
+    }
+} 
