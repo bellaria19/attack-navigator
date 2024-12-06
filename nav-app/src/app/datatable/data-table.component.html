@@ -8,35 +8,6 @@ o888     88 o888   888o 8888o  88  88  888  88  888    888 o888   888o 888      
 <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-<div class="json-viewer-section">
-    <div *ngIf="!hasAttackData()" class="json-viewer-button" (click)="uploadAttackData()"
-        matTooltip="Upload Attack Data JSON">
-        <span class="material-symbols-outlined">upload_file</span>
-        <span class="button-text">Upload Attack Data</span>
-        <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" accept=".json">
-    </div>
-    <div *ngIf="hasAttackData()" class="json-viewer-button" (click)="showCurrentJson()"
-        matTooltip="View Attack Data JSON">
-        <span class="material-symbols-outlined">data_object</span>
-        <span class="button-text">View Attack Data</span>
-    </div>
-    <div class="json-section-divider"></div>
-
-    <!-- Defense Data 섹션 -->
-    <div *ngIf="!hasDefenseData()" class="json-viewer-button" (click)="uploadDefenseData()"
-        matTooltip="Upload Defense Data JSON">
-        <span class="material-symbols-outlined">shield</span>
-        <span class="button-text">Upload Defense Data</span>
-        <input type="file" #defenseFileInput style="display: none" (change)="onDefenseFileSelected($event)"
-            accept=".json">
-    </div>
-    <div *ngIf="hasDefenseData()" class="json-viewer-button" (click)="showCurrentDefenseJson()"
-        matTooltip="View Defense Data JSON">
-        <span class="material-symbols-outlined">security</span>
-        <span class="button-text">View Defense Data</span>
-    </div>
-</div>
-
 <div class="controlsContainer">
     <div class="control-section-header">
         <div class="control-section-tabs">
@@ -746,9 +717,9 @@ o888     88 o888   888o 8888o  88  88  888  88  888    888 o888   888o 888      
 <!--
 oooo    oooo      o   ooooooooooo oooooooooo  ooooo ooooo  oooo
 8888o   888      888  88  888  88  888    888  888    888  88
-88 888o8 88     8  88     888      888oooo88   888      888
-88  888  88    8oooo88    888      888  88o    888     88 888
-o88o  8  o88o o88o  o888o o888o    o888o  88o8 o888o o88o  o888o
+888         888ooo8   888    oooo 888ooo8     88 888o88   888    888
+888      o  888    oo 888o    88  888    oo   88   8888   888    888
+o888ooooo88 o888ooo8888 888ooo888 o888ooo8888 o88o    88  o888ooo88
 -->
 <mat-drawer-container class="matrices-content" autosize>
     <mat-drawer-content>
@@ -824,5 +795,33 @@ o888ooooo88 o888ooo8888 888ooo888 o888ooo8888 o88o    88  o888ooo88
                 </button>
             </mat-form-field>
         </div>
+    </div>
+</div>
+
+<div class="json-viewer-section bottom">
+    <div *ngIf="!hasAttackData()" class="json-viewer-button" (click)="uploadAttackData()"
+        matTooltip="Upload Attack Data JSON">
+        <span class="material-symbols-outlined">upload_file</span>
+        <span class="button-text">Upload Attack Data</span>
+        <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" accept=".json">
+    </div>
+    <div *ngIf="hasAttackData()" class="json-viewer-button" (click)="showCurrentJson()"
+        matTooltip="View Attack Data JSON">
+        <span class="material-symbols-outlined">data_object</span>
+        <span class="button-text">View Attack Data</span>
+    </div>
+    <div class="json-section-divider"></div>
+
+    <div *ngIf="!hasDefenseData()" class="json-viewer-button" (click)="uploadDefenseData()"
+        matTooltip="Upload Defense Data JSON">
+        <span class="material-symbols-outlined">shield</span>
+        <span class="button-text">Upload Defense Data</span>
+        <input type="file" #defenseFileInput style="display: none" (change)="onDefenseFileSelected($event)"
+            accept=".json">
+    </div>
+    <div *ngIf="hasDefenseData()" class="json-viewer-button" (click)="showCurrentDefenseJson()"
+        matTooltip="View Defense Data JSON">
+        <span class="material-symbols-outlined">security</span>
+        <span class="button-text">View Defense Data</span>
     </div>
 </div>
